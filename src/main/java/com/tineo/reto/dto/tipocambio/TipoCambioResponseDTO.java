@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 public class TipoCambioResponseDTO {
     private String monedaOrigen;
     private String monedaDestino;
-    private Double compra;
-    private Double venta;
+    private BigDecimal compra;
+    private BigDecimal venta;
     private LocalDateTime actualizacion;
 }

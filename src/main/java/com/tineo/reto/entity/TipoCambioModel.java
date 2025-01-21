@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Table("tipo_cambio")
@@ -19,9 +20,9 @@ public class TipoCambioModel {
     @Column("moneda_destino")
     private Long monedaDestinoId;
 
-    private Double compra;
+    private BigDecimal compra;
 
-    private Double venta;
+    private BigDecimal venta;
 
     private LocalDateTime actualizacion;
 }
