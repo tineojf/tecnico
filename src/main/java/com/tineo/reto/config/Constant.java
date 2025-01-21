@@ -16,4 +16,6 @@ public class Constant {
 
     public static final String TIPO_CAMBIO_NOT_FOUND = "Tipo de cambio no encontrado -> id: ";
 
+    // moneda - messages
+    public static final String MONEDA_NOT_FOUND = "Moneda no encontrada -> id: ";
 }
