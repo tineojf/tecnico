@@ -1,5 +1,6 @@
 package com.tineo.reto.exception;
 
+import com.tineo.reto.config.Constant;
 import com.tineo.reto.dto.global.GlobalResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +43,7 @@ public class GlobalException {
                 .ok(false)
                 .message(ex.getMessage())
                 .timestamp(LocalDateTime.now())
-                .details("[" + exchange.getRequest().getMethod() + "] " + exchange.getRequest().getURI())
+                .details(String.format(Constant.GLOBAL_EXCEPTION_ERROR_DETAILS, exchange.getRequest().getMethod(), exchange.getRequest().getURI()))
                 .build();
     }
 }
