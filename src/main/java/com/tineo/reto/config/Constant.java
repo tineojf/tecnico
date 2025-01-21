@@ -7,4 +7,13 @@ public class Constant {
 
     // global exception messages
     public static final String GLOBAL_EXCEPTION_ERROR_DETAILS = "[%s] %s";
+
+    // tipo cambio - endpoints
+    public static final String TIPO_CAMBIO = API_VERSION + "/tipo-cambio";
+
+    // tipo cambio - messages
+    public static final String TIPO_CAMBIO_FOUND = "Tipo de cambio encontrado";
+
+    public static final String TIPO_CAMBIO_NOT_FOUND = "Tipo de cambio no encontrado -> id: ";
+
 }
