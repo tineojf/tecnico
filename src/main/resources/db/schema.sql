@@ -40,6 +40,7 @@ DROP TABLE IF EXISTS `moneda`;
    `moneda_origen` BIGINT NOT NULL,
    `moneda_destino` BIGINT NOT NULL,
    `monto_destino` DECIMAL(10,2) NOT NULL,
+   `tipo_cambio` DECIMAL(10,4) NOT NULL,
    `fecha_hora_transaccion` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
    PRIMARY KEY (`transaccion_id`),
    INDEX `fk_transaccion_moneda_origen_idx` (`moneda_origen` ASC) VISIBLE,
