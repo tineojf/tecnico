@@ -5,9 +5,9 @@
 Una casa de cambios digital que permita a los usuarios realizar transacciones de compra y venta de divisas. El sistema
 es implementado utilizando microservicios, exponiendo APIs REST para su interacción.
 
-[//]: # (## Endpoints Disponibles)
+## Endpoints Disponibles
 
-[//]: # (La documentación de la API Swagger se puede acceder en `http://localhost:8080/swagger-ui/index.html`.)
+La documentación de la API Swagger se puede acceder en `http://localhost:8080/swagger-ui.html`.
 
 ## Ejecutar Localmente con Docker
 
