@@ -1,0 +1,502 @@
+{
+	"info": {
+		"_postman_id": "ae5df8fe-f6a8-46ec-ae0e-0ad4954603b9",
+		"name": "Reto Tecnico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31370436"
+	},
+	"item": [
+		{
+			"name": "Tipo Cambio",
+			"item": [
+				{
+					"name": "All",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tipo-cambio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tipo-cambio"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ok",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/tipo-cambio",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"tipo-cambio"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "345"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ok\": true,\n    \"message\": \"Tipo de cambio encontrado\",\n    \"data\": [\n        {\n            \"monedaOrigen\": \"USD\",\n            \"monedaDestino\": \"PEN\",\n            \"compra\": 3.5,\n            \"venta\": 3.6,\n            \"actualizacion\": \"2025-01-22T16:09:06\"\n        },\n        {\n            \"monedaOrigen\": \"PEN\",\n            \"monedaDestino\": \"USD\",\n            \"compra\": 0.28,\n            \"venta\": 0.29,\n            \"actualizacion\": \"2025-01-22T16:09:06\"\n        }\n    ],\n    \"timestamp\": \"2025-01-22T11:13:37.688538336\",\n    \"details\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "By ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tipo-cambio/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tipo-cambio",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/tipo-cambio/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"tipo-cambio",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "229"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ok\": true,\n    \"message\": \"Tipo de cambio encontrado\",\n    \"data\": {\n        \"monedaOrigen\": \"USD\",\n        \"monedaDestino\": \"PEN\",\n        \"compra\": 3.5,\n        \"venta\": 3.6,\n        \"actualizacion\": \"2025-01-22T16:09:06\"\n    },\n    \"timestamp\": \"2025-01-22T11:14:07.234146077\",\n    \"details\": null\n}"
+						},
+						{
+							"name": "Not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/tipo-cambio/12",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"tipo-cambio",
+										"12"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "180"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ok\": false,\n    \"message\": \"Tipo de cambio no encontrado -> id: 12\",\n    \"data\": null,\n    \"timestamp\": \"2025-01-22T11:14:46.37895256\",\n    \"details\": \"[GET] http://localhost:8080/api/v1/tipo-cambio/12\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Transaccion",
+			"item": [
+				{
+					"name": "All",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/transaccion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"transaccion"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/transaccion",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"transaccion"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "326"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ok\": true,\n    \"message\": \"Transaccion encontrada\",\n    \"data\": [\n        {\n            \"montoDestino\": 28,\n            \"monedaDestino\": \"USD\",\n            \"tipoTransaccion\": \"VENTA\"\n        },\n        {\n            \"montoDestino\": 0.29,\n            \"monedaDestino\": \"USD\",\n            \"tipoTransaccion\": \"VENTA\"\n        },\n        {\n            \"montoDestino\": 350,\n            \"monedaDestino\": \"PEN\",\n            \"tipoTransaccion\": \"COMPRA\"\n        }\n    ],\n    \"timestamp\": \"2025-01-22T11:15:35.227513712\",\n    \"details\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "By ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/transaccion/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"transaccion",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/transaccion/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"transaccion",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "184"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ok\": true,\n    \"message\": \"Transaccion encontrada\",\n    \"data\": {\n        \"montoDestino\": 350,\n        \"monedaDestino\": \"PEN\",\n        \"tipoTransaccion\": \"COMPRA\"\n    },\n    \"timestamp\": \"2025-01-22T11:15:43.779273444\",\n    \"details\": null\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/transaccion/13",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"transaccion",
+										"13"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "178"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ok\": false,\n    \"message\": \"Transaccion no encontrada -> id: 13\",\n    \"data\": null,\n    \"timestamp\": \"2025-01-22T11:15:55.994769032\",\n    \"details\": \"[GET] http://localhost:8080/api/v1/transaccion/13\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Transaccion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tipoTransaccion\" : \"COMPRA\",\n    \"montoOrigen\": 1.2,\n    \"monedaOrigen\": \"USD\",\n    \"monedaDestino\": \"PEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/transaccion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"transaccion"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ok",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tipoTransaccion\" : \"VENTA\",\n    \"montoOrigen\": 3.6000,\n    \"monedaOrigen\": \"PEN\",\n    \"monedaDestino\": \"USD\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/transaccion",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"transaccion"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "179"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ok\": true,\n    \"message\": \"Transaccion creada\",\n    \"data\": {\n        \"montoDestino\": 1.044,\n        \"monedaDestino\": \"USD\",\n        \"tipoTransaccion\": \"VENTA\"\n    },\n    \"timestamp\": \"2025-01-22T11:17:37.821546459\",\n    \"details\": null\n}"
+						},
+						{
+							"name": "Campo Required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"montoOrigen\": 1.2,\n    \"monedaOrigen\": \"USD\",\n    \"monedaDestino\": \"PEN\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/transaccion",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"transaccion"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "202"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ok\": false,\n    \"message\": \"Campo 'tipoTransaccion': El tipo de transacción es requerido\",\n    \"data\": null,\n    \"timestamp\": \"2025-01-22T11:39:14.527958158\",\n    \"details\": \"[POST] http://localhost:8080/api/v1/transaccion\"\n}"
+						},
+						{
+							"name": "Moneda Not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tipoTransaccion\" : \"COMPRA\",\n    \"montoOrigen\": 1.2,\n    \"monedaOrigen\": \"USS\",\n    \"monedaDestino\": \"PEN\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/transaccion",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"transaccion"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "176"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ok\": false,\n    \"message\": \"Moneda no encontrada -> codigo: USS\",\n    \"data\": null,\n    \"timestamp\": \"2025-01-22T11:39:34.166012062\",\n    \"details\": \"[POST] http://localhost:8080/api/v1/transaccion\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
