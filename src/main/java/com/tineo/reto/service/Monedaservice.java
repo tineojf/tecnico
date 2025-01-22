@@ -15,6 +15,11 @@ public class Monedaservice {
 
     public Mono<MonedaModel> findById(Long id) {
         return monedaRepository.findById(id)
-                .switchIfEmpty(Mono.error(new ResourceNotFoundException(Constant.MONEDA_NOT_FOUND + id)));
+                .switchIfEmpty(Mono.error(new ResourceNotFoundException(Constant.MONEDA_NOT_FOUND_BY_ID + id)));
+    }
+
+    public Mono<MonedaModel> findByCodigo(String codigo) {
+        return monedaRepository.findByCodigo(codigo)
+                .switchIfEmpty(Mono.error(new ResourceNotFoundException(Constant.MONEDA_NOT_FOUND_BY_CODIGO + codigo)));
     }
 }

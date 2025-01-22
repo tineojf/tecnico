@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.math.BigDecimal;
+
 @Service
 @RequiredArgsConstructor
 public class TipoCambioService {
@@ -42,5 +44,11 @@ public class TipoCambioService {
                             tipoCambioMapper.toDTO(tipoCambio, origen, destino)
                     );
                 });
+    }
+
+    public Mono<BigDecimal> findMoneda(MonedaModel origen, MonedaModel destino, String tipoTransaccion) {
+        return tipoCambioRepository.findByMonedaOrigenIdAndMonedaDestinoId(origen.getMonedaId(), destino.getMonedaId())
+                .switchIfEmpty(Mono.error(new ResourceNotFoundException(Constant.TIPO_CAMBIO_NOT_FOUND)))
+                .map(tipoCambio -> tipoTransaccion.equals("COMPRA") ? tipoCambio.getCompra() : tipoCambio.getVenta());
     }
 }

@@ -17,5 +17,12 @@ public class Constant {
     public static final String TIPO_CAMBIO_NOT_FOUND = "Tipo de cambio no encontrado -> id: ";
 
     // moneda - messages
-    public static final String MONEDA_NOT_FOUND = "Moneda no encontrada -> id: ";
+    public static final String MONEDA_NOT_FOUND_BY_ID = "Moneda no encontrada -> id: ";
+    public static final String MONEDA_NOT_FOUND_BY_CODIGO = "Moneda no encontrada -> codigo: ";
+
+    // transaccion - endpoints
+    public static final String TRANSACCION = API_VERSION + "/transaccion";
+
+    // transaccion - messages
+    public static final String TRANSACCION_CREATED = "Transaccion creada";
 }
