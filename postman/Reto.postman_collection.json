@@ -11,6 +11,67 @@
 			"item": [
 				{
 					"name": "All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Estado: 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"La respuesta contiene los campos esperados\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"ok\", true);",
+									"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"data\").that.is.an(\"array\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"details\");",
+									"});",
+									"",
+									"pm.test(\"El campo 'data' tiene el formato correcto\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    jsonData.data.forEach(item => {",
+									"        pm.expect(item).to.have.property(\"monedaOrigen\").that.is.a(\"string\");",
+									"        pm.expect(item).to.have.property(\"monedaDestino\").that.is.a(\"string\");",
+									"        pm.expect(item).to.have.property(\"compra\").that.is.a(\"number\");",
+									"        pm.expect(item).to.have.property(\"venta\").that.is.a(\"number\");",
+									"        pm.expect(item).to.have.property(\"actualizacion\").that.is.a(\"string\");",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"El campo 'ok' es verdadero\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.ok).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"El campo 'data' contiene al menos un elemento\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.length).to.be.above(0);",
+									"});",
+									"",
+									"pm.test(\"Las fechas en 'actualizacion' están en formato ISO\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const isoFormat = /\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}/;",
+									"    jsonData.data.forEach(item => {",
+									"        pm.expect(item.actualizacion).to.match(isoFormat);",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Los valores de 'compra' y 'venta' son positivos\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    jsonData.data.forEach(item => {",
+									"        pm.expect(item.compra).to.be.above(0);",
+									"        pm.expect(item.venta).to.be.above(0);",
+									"    });",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -71,6 +132,62 @@
 				},
 				{
 					"name": "By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El código de estado HTTP es 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"La respuesta tiene la estructura correcta\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"ok\").that.is.a(\"boolean\");",
+									"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"data\").that.is.an(\"object\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"details\").that.is.null;",
+									"});",
+									"",
+									"pm.test(\"La respuesta tiene la estructura correcta\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"ok\").that.is.a(\"boolean\");",
+									"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"data\").that.is.an(\"object\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"details\").that.is.null;",
+									"});",
+									"",
+									"pm.test(\"El campo 'data' existe y tiene formato correcto\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.be.an(\"object\");",
+									"    pm.expect(jsonData.data).to.have.property(\"monedaOrigen\").that.is.a(\"string\");",
+									"    pm.expect(jsonData.data).to.have.property(\"monedaDestino\").that.is.a(\"string\");",
+									"    pm.expect(jsonData.data).to.have.property(\"compra\").that.is.a(\"number\");",
+									"    pm.expect(jsonData.data).to.have.property(\"venta\").that.is.a(\"number\");",
+									"    pm.expect(jsonData.data).to.have.property(\"actualizacion\").that.is.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"Los valores de 'compra' y 'venta' son positivos\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.compra).to.be.above(0);",
+									"    pm.expect(jsonData.data.venta).to.be.above(0);",
+									"});",
+									"",
+									"pm.test(\"Los códigos de moneda tienen 3 caracteres\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.monedaOrigen).to.have.lengthOf(3);",
+									"    pm.expect(jsonData.data.monedaDestino).to.have.lengthOf(3);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -128,14 +245,90 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"ok\": true,\n    \"message\": \"Tipo de cambio encontrado\",\n    \"data\": {\n        \"monedaOrigen\": \"USD\",\n        \"monedaDestino\": \"PEN\",\n        \"compra\": 3.5,\n        \"venta\": 3.6,\n        \"actualizacion\": \"2025-01-22T16:09:06\"\n    },\n    \"timestamp\": \"2025-01-22T11:14:07.234146077\",\n    \"details\": null\n}"
-						},
+						}
+					]
+				},
+				{
+					"name": "By ID not found",
+					"event": [
 						{
-							"name": "Not found",
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El código de estado HTTP es 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"La respuesta tiene la estructura correcta\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"ok\").that.is.a(\"boolean\");",
+									"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"data\").that.is.null;",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"details\").that.is.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"El campo 'ok' es falso\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.ok).to.be.false;",
+									"});",
+									"",
+									"pm.test(\"El mensaje incluye el ID de tipo de cambio no encontrado\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.include(\"Tipo de cambio no encontrado -> id: 13\");",
+									"});",
+									"",
+									"pm.test(\"El campo 'data' es null\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.be.null;",
+									"});",
+									"",
+									"pm.test(\"El campo 'timestamp' tiene el formato correcto\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const isoFormat = /\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}/;",
+									"    pm.expect(jsonData.timestamp).to.match(isoFormat);",
+									"});",
+									"",
+									"pm.test(\"El campo 'details' contiene la URL correcta\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.details).to.include(\"http://localhost:8080/api/v1/tipo-cambio/13\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tipo-cambio/13",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tipo-cambio",
+								"13"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not Found",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/tipo-cambio/12",
+									"raw": "http://localhost:8080/api/v1/tipo-cambio/13",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -145,7 +338,7 @@
 										"api",
 										"v1",
 										"tipo-cambio",
-										"12"
+										"13"
 									]
 								}
 							},
@@ -163,9 +356,31 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"ok\": false,\n    \"message\": \"Tipo de cambio no encontrado -> id: 12\",\n    \"data\": null,\n    \"timestamp\": \"2025-01-22T11:14:46.37895256\",\n    \"details\": \"[GET] http://localhost:8080/api/v1/tipo-cambio/12\"\n}"
+							"body": "{\n    \"ok\": false,\n    \"message\": \"Tipo de cambio no encontrado -> id: 13\",\n    \"data\": null,\n    \"timestamp\": \"2025-01-22T12:47:25.57948368\",\n    \"details\": \"[GET] http://localhost:8080/api/v1/tipo-cambio/13\"\n}"
 						}
 					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -174,6 +389,65 @@
 			"item": [
 				{
 					"name": "All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El código de estado HTTP es 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"La respuesta tiene la estructura correcta\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"ok\").that.is.a(\"boolean\");",
+									"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"data\").that.is.an(\"array\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"details\").that.is.null;",
+									"});",
+									"",
+									"pm.test(\"El campo 'ok' es verdadero\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.ok).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Cada transacción en 'data' tiene las propiedades correctas\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    jsonData.data.forEach(item => {",
+									"        pm.expect(item).to.have.property(\"montoDestino\").that.is.a(\"number\");",
+									"        pm.expect(item).to.have.property(\"monedaDestino\").that.is.a(\"string\");",
+									"        pm.expect(item).to.have.property(\"tipoTransaccion\").that.is.a(\"string\");",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Los valores de 'montoDestino' son positivos\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    jsonData.data.forEach(item => {",
+									"        pm.expect(item.montoDestino).to.be.above(0);",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Los valores de 'tipoTransaccion' son válidos\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const validTipos = [\"COMPRA\", \"VENTA\"];",
+									"    jsonData.data.forEach(item => {",
+									"        pm.expect(validTipos).to.include(item.tipoTransaccion);",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"El campo 'timestamp' tiene el formato correcto\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const isoFormat = /\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}/;",
+									"    pm.expect(jsonData.timestamp).to.match(isoFormat);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -234,6 +508,59 @@
 				},
 				{
 					"name": "By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El código de estado HTTP es 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"La respuesta tiene la estructura correcta\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"ok\").that.is.a(\"boolean\");",
+									"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"data\").that.is.an(\"object\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"details\").that.is.null;",
+									"});",
+									"",
+									"pm.test(\"El campo 'ok' es verdadero\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.ok).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"El campo 'data' tiene las propiedades correctas\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property(\"montoDestino\").that.is.a(\"number\");",
+									"    pm.expect(jsonData.data).to.have.property(\"monedaDestino\").that.is.a(\"string\");",
+									"    pm.expect(jsonData.data).to.have.property(\"tipoTransaccion\").that.is.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"El valor de 'montoDestino' es positivo\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.montoDestino).to.be.above(0);",
+									"});",
+									"",
+									"pm.test(\"El valor de 'tipoTransaccion' es válido\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const validTipos = [\"COMPRA\", \"VENTA\"];",
+									"    pm.expect(validTipos).to.include(jsonData.data.tipoTransaccion);",
+									"});",
+									"",
+									"pm.test(\"El campo 'timestamp' tiene el formato correcto\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const isoFormat = /\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}/;",
+									"    pm.expect(jsonData.timestamp).to.match(isoFormat);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -291,14 +618,90 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"ok\": true,\n    \"message\": \"Transaccion encontrada\",\n    \"data\": {\n        \"montoDestino\": 350,\n        \"monedaDestino\": \"PEN\",\n        \"tipoTransaccion\": \"COMPRA\"\n    },\n    \"timestamp\": \"2025-01-22T11:15:43.779273444\",\n    \"details\": null\n}"
-						},
+						}
+					]
+				},
+				{
+					"name": "By ID Not found",
+					"event": [
 						{
-							"name": "Not Found",
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El código de estado HTTP es 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"La respuesta tiene la estructura correcta\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"ok\").that.is.a(\"boolean\");",
+									"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"data\").that.is.null;",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"details\").that.is.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"El campo 'ok' es falso\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.ok).to.be.false;",
+									"});",
+									"",
+									"pm.test(\"El mensaje incluye el ID de la transacción no encontrada\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.include(\"Transaccion no encontrada -> id: 999999\");",
+									"});",
+									"",
+									"pm.test(\"El campo 'data' es null\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.be.null;",
+									"});",
+									"",
+									"pm.test(\"El campo 'timestamp' tiene el formato correcto\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const isoFormat = /\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}/;",
+									"    pm.expect(jsonData.timestamp).to.match(isoFormat);",
+									"});",
+									"",
+									"pm.test(\"El campo 'details' contiene la URL correcta\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.details).to.include(\"http://localhost:8080/api/v1/transaccion/999999\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/transaccion/999999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"transaccion",
+								"999999"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "By ID Not found",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/transaccion/13",
+									"raw": "http://localhost:8080/api/v1/transaccion/999999",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -308,7 +711,7 @@
 										"api",
 										"v1",
 										"transaccion",
-										"13"
+										"999999"
 									]
 								}
 							},
@@ -322,16 +725,69 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "178"
+									"value": "186"
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"ok\": false,\n    \"message\": \"Transaccion no encontrada -> id: 13\",\n    \"data\": null,\n    \"timestamp\": \"2025-01-22T11:15:55.994769032\",\n    \"details\": \"[GET] http://localhost:8080/api/v1/transaccion/13\"\n}"
+							"body": "{\n    \"ok\": false,\n    \"message\": \"Transaccion no encontrada -> id: 999999\",\n    \"data\": null,\n    \"timestamp\": \"2025-01-22T12:48:29.687113972\",\n    \"details\": \"[GET] http://localhost:8080/api/v1/transaccion/999999\"\n}"
 						}
 					]
 				},
 				{
-					"name": "Transaccion",
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El código de estado HTTP es 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"La respuesta tiene la estructura correcta\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"ok\").that.is.a(\"boolean\");",
+									"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"data\").that.is.an(\"object\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"details\").that.is.null;",
+									"});",
+									"",
+									"pm.test(\"El campo 'ok' es verdadero\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.ok).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"El campo 'data' tiene las propiedades correctas\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property(\"montoDestino\").that.is.a(\"number\");",
+									"    pm.expect(jsonData.data).to.have.property(\"monedaDestino\").that.is.a(\"string\");",
+									"    pm.expect(jsonData.data).to.have.property(\"tipoTransaccion\").that.is.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"El valor de 'montoDestino' es positivo\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.montoDestino).to.be.above(0);",
+									"});",
+									"",
+									"pm.test(\"El valor de 'tipoTransaccion' es válido\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const validTipos = [\"COMPRA\", \"VENTA\"];",
+									"    pm.expect(validTipos).to.include(jsonData.data.tipoTransaccion);",
+									"});",
+									"",
+									"pm.test(\"El campo 'timestamp' tiene el formato correcto\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const isoFormat = /\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}/;",
+									"    pm.expect(jsonData.timestamp).to.match(isoFormat);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -405,7 +861,91 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"ok\": true,\n    \"message\": \"Transaccion creada\",\n    \"data\": {\n        \"montoDestino\": 1.044,\n        \"monedaDestino\": \"USD\",\n        \"tipoTransaccion\": \"VENTA\"\n    },\n    \"timestamp\": \"2025-01-22T11:17:37.821546459\",\n    \"details\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Create sin moneda",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El código de estado HTTP es 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"La respuesta tiene la estructura correcta\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"ok\").that.is.a(\"boolean\");",
+									"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"data\").that.is.null;",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"details\").that.is.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"El campo 'ok' es falso\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.ok).to.be.false;",
+									"});",
+									"",
+									"pm.test(\"El mensaje incluye el error del campo 'monedaOrigen'\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.include(\"Campo 'monedaOrigen': La moneda de origen es requerida\");",
+									"});",
+									"",
+									"pm.test(\"El campo 'data' es null\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.be.null;",
+									"});",
+									"",
+									"pm.test(\"El campo 'timestamp' tiene el formato correcto\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const isoFormat = /\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}/;",
+									"    pm.expect(jsonData.timestamp).to.match(isoFormat);",
+									"});",
+									"",
+									"pm.test(\"El campo 'details' contiene la URL correcta\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.details).to.include(\"http://localhost:8080/api/v1/transaccion\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
 						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tipoTransaccion\" : \"COMPRA\",\n    \"montoOrigen\": 1.2,\n    \"monedaDestino\": \"PEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/transaccion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"transaccion"
+							]
+						}
+					},
+					"response": [
 						{
 							"name": "Campo Required",
 							"originalRequest": {
@@ -449,7 +989,91 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"ok\": false,\n    \"message\": \"Campo 'tipoTransaccion': El tipo de transacción es requerido\",\n    \"data\": null,\n    \"timestamp\": \"2025-01-22T11:39:14.527958158\",\n    \"details\": \"[POST] http://localhost:8080/api/v1/transaccion\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create moneda invalida",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El código de estado HTTP es 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"La respuesta tiene la estructura correcta\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"ok\").that.is.a(\"boolean\");",
+									"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"data\").that.is.null;",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"details\").that.is.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"El campo 'ok' es falso\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.ok).to.be.false;",
+									"});",
+									"",
+									"pm.test(\"El mensaje incluye el error de moneda no encontrada\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.include(\"Moneda no encontrada -> codigo: USS\");",
+									"});",
+									"",
+									"pm.test(\"El campo 'data' es null\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.be.null;",
+									"});",
+									"",
+									"pm.test(\"El campo 'timestamp' tiene el formato correcto\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const isoFormat = /\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}/;",
+									"    pm.expect(jsonData.timestamp).to.match(isoFormat);",
+									"});",
+									"",
+									"pm.test(\"El campo 'details' contiene la URL correcta\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.details).to.include(\"http://localhost:8080/api/v1/transaccion\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
 						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tipoTransaccion\" : \"COMPRA\",\n    \"montoOrigen\": 1.2,\n    \"monedaOrigen\": \"USS\",\n    \"monedaDestino\": \"PEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/transaccion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"transaccion"
+							]
+						}
+					},
+					"response": [
 						{
 							"name": "Moneda Not found",
 							"originalRequest": {
