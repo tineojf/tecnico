@@ -14,4 +14,6 @@ COPY ./src /app/src
 
 RUN ./mvnw clean install -DskipTests
 
-ENTRYPOINT ["java", "-jar", "/app/target/reto-0.0.1-SNAPSHOT.jar"]
+RUN apt-get update && apt-get install -y netcat-openbsd
+
+ENTRYPOINT ["sh", "-c", "while ! nc -z reto-db 3306; do sleep 1; done; java -jar /app/target/reto-0.0.1-SNAPSHOT.jar"]
