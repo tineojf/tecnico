@@ -1,0 +1,45 @@
+services:
+    reto-db:
+        image: mysql
+        container_name: reto-db
+        ports:
+            - "3306:3306"
+        networks:
+            - reto-net
+        volumes:
+            - db-data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: prodreto
+            MYSQL_USER: reto
+            MYSQL_PASSWORD: reto
+        healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            interval: 10s
+            timeout: 5s
+            retries: 3
+
+    reto-microservice:
+        image: reto-microservice
+        container_name: reto-microservice
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8080:8080"
+        networks:
+            - reto-net
+        depends_on:
+            - reto-db
+        environment:
+            SPRING_PROFILES_ACTIVE: prod
+            SPRING_DATASOURCE_URL: r2dbc:mysql://reto-db:3306/prodreto?createDatabaseIfNotExist=true
+            SPRING_MYSQL_USERNAME: root
+            SPRING_MYSQL_PASSWORD: root
+
+networks:
+    reto-net:
+        driver: bridge
+
+volumes:
+    db-data:
