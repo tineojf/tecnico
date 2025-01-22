@@ -1,9 +1,12 @@
 package com.tineo.reto.service;
 
+import com.tineo.reto.config.Constant;
+import com.tineo.reto.dto.tipocambio.TipoCambioResponseDTO;
 import com.tineo.reto.dto.transaccion.TransaccionRequestDTO;
 import com.tineo.reto.dto.transaccion.TransaccionResponseDTO;
 import com.tineo.reto.entity.MonedaModel;
 import com.tineo.reto.entity.TransaccionModel;
+import com.tineo.reto.exception.ResourceNotFoundException;
 import com.tineo.reto.mapper.TransaccionMapper;
 import com.tineo.reto.repository.TransaccionRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +25,21 @@ public class TransaccionService {
     private final TipoCambioService tipoCambioService;
     private final TransaccionMapper transaccionMapper;
 
-    public Flux<TransaccionModel> findAll() {
-        return transaccionRepository.findAll();
+    public Flux<TransaccionResponseDTO> findAll() {
+        return transaccionRepository.findAll()
+                .flatMap(tipoCambio -> {
+                    Mono<MonedaModel> monedaDestino = monedaService.findById(tipoCambio.getMonedaDestinoId());
+                    return monedaDestino.map(destino -> transaccionMapper.toDTO(tipoCambio, destino));
+                });
     }
 
-    public Mono<TransaccionModel> findById(Long id) {
-        return transaccionRepository.findById(id);
+    public Mono<TransaccionResponseDTO> findById(Long id) {
+        return transaccionRepository.findById(id)
+                .switchIfEmpty(Mono.error(new ResourceNotFoundException(Constant.TRANSACCION_NOT_FOUND + id)))
+                .flatMap(tipoCambio -> {
+                    Mono<MonedaModel> monedaDestino = monedaService.findById(tipoCambio.getMonedaDestinoId());
+                    return monedaDestino.map(destino -> transaccionMapper.toDTO(tipoCambio, destino));
+                });
     }
 
     public Mono<TransaccionResponseDTO> save(TransaccionRequestDTO transaccion) {

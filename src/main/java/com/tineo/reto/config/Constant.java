@@ -25,4 +25,7 @@ public class Constant {
 
     // transaccion - messages
     public static final String TRANSACCION_CREATED = "Transaccion creada";
+    public static final String TRANSACCION_FOUND = "Transaccion encontrada";
+
+    public static final String TRANSACCION_NOT_FOUND = "Transaccion no encontrada -> id: ";
 }
