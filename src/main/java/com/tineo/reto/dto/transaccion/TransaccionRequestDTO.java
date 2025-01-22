@@ -14,17 +14,17 @@ import org.hibernate.validator.constraints.Length;
 @Builder
 public class TransaccionRequestDTO {
 
-    @NotNull
+    @NotNull(message = "El tipo de transacción es requerido")
     private TipoTransaccionEnum tipoTransaccion;
 
-    @NotNull
+    @NotNull(message = "El monto de origen es requerido")
     private Double montoOrigen;
 
-    @NotNull
+    @NotNull(message = "La moneda de origen es requerida")
     @Length(min = 3, max = 3)
     private String monedaOrigen;
 
-    @NotNull
+    @NotNull(message = "La moneda de destino es requerida")
     @Length(min = 3, max = 3)
     private String monedaDestino;
 }

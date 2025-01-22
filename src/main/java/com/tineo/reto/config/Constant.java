@@ -7,6 +7,7 @@ public class Constant {
 
     // global exception messages
     public static final String GLOBAL_EXCEPTION_ERROR_DETAILS = "[%s] %s";
+    public static final String GLOBAL_EXCEPTION_ERROR_PARAMETER_TYPE = "El parámetro '%s' debe ser de tipo %s";
 
     // tipo cambio - endpoints
     public static final String TIPO_CAMBIO = API_VERSION + "/tipo-cambio";
